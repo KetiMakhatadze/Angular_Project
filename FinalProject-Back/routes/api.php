@@ -15,3 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 //PUBLIC ROUTES
 Route::post('register', 'App\Http\Controllers\AuthController@register');
+Route::post('login', 'App\Http\Controllers\AuthController@login');
+
+
+//AUTH ROUTES
