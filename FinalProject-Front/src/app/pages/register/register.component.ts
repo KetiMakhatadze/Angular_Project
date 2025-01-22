@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  imports: [FormsModule]
 })
 export class RegisterComponent {
   name: string = '';
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
-
   onRegister(): void {
-    alert(`Welcome, ${this.name}! Registration successful.`);
-    this.router.navigate(['/login']);
+    console.log('2')
   }
 }

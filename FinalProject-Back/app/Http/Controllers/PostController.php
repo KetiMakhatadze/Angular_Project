@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index(): JsonResponse
     {
-        $posts = Post::with('user:id,name,email')->get(); // Eager load user name and email
+        $posts = Post::with('user:id,name,email')->get();
 
         return response()->json([
             'status' => '1',
