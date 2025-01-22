@@ -37,4 +37,9 @@ class User extends Authenticatable implements JWTSubject
         'created_at',
         'updated_at',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

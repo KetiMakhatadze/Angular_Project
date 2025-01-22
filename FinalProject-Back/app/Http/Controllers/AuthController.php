@@ -18,51 +18,83 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $userData = $request->validated();
+        try {
+            $userData = $request->validated();
 
-        $userData['password'] = bcrypt($userData['password']);
-        $userData['role'] = 'user';
+            $userData['password'] = bcrypt($userData['password']);
+            $userData['role'] = 'user';
 
-        $newUser = User::create($userData);
+            $newUser = User::create($userData);
 
-        $response = [
-            'user' => $newUser,
-            'message' => 'User registered successfully. Please log in.'
-        ];
+            $response = [
+                'user' => $newUser,
+                'message' => 'User registered successfully. Please log in.'
+            ];
 
-        return response()->json([
-            'status' => '200',
-            'user' => $response,
-        ]);
+            return response()->json([
+                'status' => '1',
+                'user' => $response,
+            ], 201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'message' => 'Registration failed: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $credentials = $request->only('email', 'password');
-
         try {
+            $credentials = $request->validated();
+
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
-                    'status' => 'error',
+                    'status' => '0',
                     'message' => 'Invalid credentials',
                 ], 401);
             }
+
+            $user = JWTAuth::user();
+
+            return response()->json([
+                'status' => '1',
+                'user' => $user,
+                'authorization' => [
+                    'token' => $token,
+                    'type' => 'bearer',
+                ]
+            ], 200);
+
         } catch (JWTException $e) {
             return response()->json([
-                'status' => 'error',
-                'message' => 'Could not create token',
+                'status' => '0',
+                'message' => 'Could not create token: ' . $e->getMessage(),
+            ], 500);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '0',
+                'message' => 'Login failed: ' . $e->getMessage(),
             ], 500);
         }
+    }
 
-        $user = JWTAuth::user();
+    public function logout(): JsonResponse
+    {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
 
-        return response()->json([
-            'status' => '200',
-            'user' => $user,
-            'authorization' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
+            return response()->json([
+                'status' => '1',
+                'message' => 'User logged out successfully.'
+            ], 200);
+
+        } catch (JWTException $e) {
+            return response()->json([
+                'status' => '0',
+                'message' => 'Failed to log out: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }
