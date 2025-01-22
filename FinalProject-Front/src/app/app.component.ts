@@ -35,13 +35,6 @@ export class AppComponent {
     });
   }
 
-  login(): void {
-    this.dataService.setUserData({ name: 'John Doe', email: 'john@example.com' });
-    this.dataService.setPostsData([{ title: 'Post 1' }, { title: 'Post 2' }]);
-
-    this.router.navigate(['/dashboard']);
-  }
-
   logout(): void {
     localStorage.removeItem('token');
     this.dataService.setUserData(null);
