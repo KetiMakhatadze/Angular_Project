@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -39,7 +40,7 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => '0',
-                'message' => 'Registration failed: ' . $e->getMessage(),
+                'message' => $e->getMessage() ?? 'User Registration Failed',
             ], 500);
         }
     }
@@ -61,6 +62,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => '1',
                 'user' => $user,
+                'posts' => Post::all(),
                 'authorization' => [
                     'token' => $token,
                     'type' => 'bearer',
@@ -70,12 +72,16 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return response()->json([
                 'status' => '0',
-                'message' => 'Could not create token: ' . $e->getMessage(),
+                'message' => 'Token creation failed.',
             ], 500);
         } catch (\Exception $e) {
+            $errorMessage = 'Login failed: ' . $e->getMessage();
+            $errors = $request->validator->errors()->all();
+            $firstErrorMessage = $errors[0] ?? 'Login failed.';
+
             return response()->json([
                 'status' => '0',
-                'message' => 'Login failed: ' . $e->getMessage(),
+                'message' => $firstErrorMessage,
             ], 500);
         }
     }

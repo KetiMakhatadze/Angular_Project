@@ -1,0 +1,32 @@
+<div class="modal-overlay">
+  <div class="max-w-[840px] w-full bg-white p-[48px] rounded-[32px] relative">
+    <div>
+      <h2 class="text-[32px] text-btnColor font-normal">Create new content</h2>
+      <button class="absolute top-8 right-8 bg-transparent" (click)="closeModalEvent()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <input
+      placeholder="Title"
+      [(ngModel)]="title"
+      type="text"
+      class="px-6 mt-6 py-[19px] rounded-[16px] w-full border border-lightGrey"
+    />
+    <div class="mt-6 h-[480px]">
+      <textarea
+        class="modal-textarea h-full w-full border border-lightGrey rounded-[16px] p-6"
+        placeholder="Blog content..."
+        [(ngModel)]="description"
+      ></textarea>
+    </div>
+    <button
+      type="button"
+      class="bg-btnColor text-white max-w-[240px] w-full h-[56px] mt-[48px] rounded-[80px] flex items-center justify-center cursor-pointer"
+      (click)="onSubmit()"
+    >
+      Create new content
+    </button>
+  </div>
+</div>

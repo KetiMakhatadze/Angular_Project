@@ -1,0 +1,23 @@
+<div class="mt-[43px] px-12">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-5xl font-normal text-btnColor">Beauty blog</h1>
+      <p class="text-lightBlack font-normal text-lg mt-[6px]">Lorem ipusm text here</p>
+    </div>
+    <button (click)="openModal()" type="submit" class="bg-btnColor text-white max-w-[240px] w-full h-[56px] rounded-[80px] flex items-center justify-center cursor-pointer">Create new content</button>
+  </div>
+  <div class="flex flex-col" *ngIf="postsData">
+    <div class="mt-[43px]" *ngFor="let post of postsData">
+      <div class="border border-lightGrey w-full rounded-2xl py-[23px] px-8">
+        <h2 class="text-[32px] font-normal text-btnColor text-wrap">{{ post.title }}</h2>
+        <p class="text-lightBlack text-lg text-normal text-wrap mt-4">{{ post.description }}</p>
+        <p class="text-btnColor text-lg text-normal text-wrap mt-4 w-[300px] truncate">By: {{ userData.name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!postsData">
+    <p>No posts available.</p>
+  </div>
+  <app-modal (createPost)="handleCreatePost($event)" *ngIf="showModal" (closeModal)="closeModal()"></app-modal>
+</div>

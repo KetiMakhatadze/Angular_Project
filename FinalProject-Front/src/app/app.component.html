@@ -1,2 +1,12 @@
-<div class="absolute left-12 top-12 w-[206px] h-[76px]"><img src="/assets/images/logo.png" alt="Beauty Blog Logo" /></div>
+<div class="w-full" [ngClass]="{'border-b h-[150px] border-lightGrey': userData, '': !userData}">
+  <div class="absolute left-12 w-[206px] h-[76px]" [ngClass]="{'top-12': !userData, 'top-10': userData}"><img src="/assets/images/logo.png" alt="Beauty Blog Logo" /></div>
+  <div *ngIf="userData" class="absolute right-12 top-12">
+    <div class="flex items-center gap-x-6">
+      <div class="text-btnColor text-lg font-normal">  <a [routerLink]="currentRoute === '/profile' ? '/dashboard' : '/profile'">
+        {{ currentRoute === '/profile' ? 'Dashboard' : 'My account' }}
+      </a></div>
+      <button class="w-[128px] h-12 flex items-center justify-center border rounded-[80px] border-btnColor text-lg font-normal" (click)="logout()">Sign out</button>
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>

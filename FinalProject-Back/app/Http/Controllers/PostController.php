@@ -14,6 +14,7 @@ class PostController extends Controller
 
         return response()->json([
             'status' => '1',
+            'user' => auth()->user(),
             'posts' => $posts,
         ], 200);
     }

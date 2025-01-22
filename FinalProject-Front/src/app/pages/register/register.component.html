@@ -6,12 +6,29 @@
         <p class="font-normal text-lg text-lightBlack text-center">Create your Beauty blog account</p>
         <div class="flex flex-col mt-8">
           <input placeholder="Your name" type="name" id="name" [(ngModel)]="name" name="name" required class="px-6 py-[19px] rounded-[58px] border border-lightGrey">
+
+
           <input placeholder="Email address" type="email" id="email" [(ngModel)]="email" name="email" required class="px-6 py-[19px] mt-4 rounded-[58px] border border-lightGrey">
+
           <input placeholder="Create password" type="password" id="password" [(ngModel)]="password" name="password" required class="px-6 mt-4 py-[19px] rounded-[58px] border border-lightGrey">
 
+          <div *ngIf="errors.name" class="text-red-500 text-sm mt-2">
+            {{ errors.name[0] }}
+          </div>
+          <div *ngIf="errors.email" class="text-red-500 text-sm mt-2">
+            {{ errors.email[0] }}
+          </div>
+          <div *ngIf="errors.password" class="text-red-500 text-sm mt-2">
+            {{ errors.password[0] }}
+          </div>
+          <div *ngIf="generalError" class="text-red-500 text-sm mt-2">
+            {{ generalError }}
+          </div>
+
           <button type="submit" class="bg-btnColor text-white max-w-[400px] w-full mt-8 h-[56px] rounded-[80px] flex items-center justify-center cursor-pointer">Sign up</button>
-          <div class="flex items-center gap-x-1 mt-5 mx-auto
-"><p class="text-lg text-lightBlack">Already have account?</p> <a class="text-btnColor text-lg font-normal" href="/login">Sign in now</a></div>
+          <div class="flex items-center gap-x-1 mt-5 mx-auto">
+            <p class="text-lg text-lightBlack">Already have account?</p> <a class="text-btnColor text-lg font-normal" href="/login">Sign in now</a>
+          </div>
         </div>
       </form>
     </div>

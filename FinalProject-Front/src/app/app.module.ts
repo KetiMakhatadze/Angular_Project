@@ -7,6 +7,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 
 import { AppRoutingModule } from './app.routes';
+import {ProfileComponent} from './pages/profile/profile.component';
+import {ModalComponent} from './pages/modal/modal.component';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { AppRoutingModule } from './app.routes';
     HttpClientModule,
     AppRoutingModule,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent,
+    ModalComponent
   ],
   providers: [],
   bootstrap: []

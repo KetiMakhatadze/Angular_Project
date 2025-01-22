@@ -8,6 +8,10 @@
           <input placeholder="Email address" type="email" id="email" [(ngModel)]="email" name="email" required class="px-6 py-[19px] rounded-[58px] border border-lightGrey">
           <input placeholder="Password" type="password" id="password" [(ngModel)]="password" name="password" required class="px-6 mt-4 py-[19px] rounded-[58px] border border-lightGrey">
 
+          <div *ngIf="generalError" class="text-red-500 text-sm mt-2">
+            {{ generalError }}
+          </div>
+
           <button type="submit" class="bg-btnColor text-white max-w-[400px] w-full mt-8 h-[56px] rounded-[80px] flex items-center justify-center cursor-pointer">Login</button>
           <div class="flex items-center gap-x-1 mt-5 mx-auto
 "><p class="text-lg text-lightBlack">Don’t have account yet?</p> <a class="text-btnColor text-lg font-normal" href="/register">Sign up now</a></div>
